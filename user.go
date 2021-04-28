@@ -9,8 +9,8 @@ type UserService struct {
 
 // UserList holds a list of Users and paging information
 type UserList struct {
-	Pages PageParams
-	Users []User
+	Pages       PageParams
+	Users       []User
 	ScrollParam string `json:"scroll_param,omitempty"`
 }
 
@@ -26,7 +26,7 @@ type User struct {
 	Name                   string                 `json:"name,omitempty"`
 	Pseudonym              string                 `json:"pseudonym,omitempty"`
 	Avatar                 *UserAvatar            `json:"avatar,omitempty"`
-	LocationData           *LocationData          `json:"location_data,omitempty"`
+	LocationData           *LocationData          `json:"location,omitempty"`
 	SignedUpAt             int64                  `json:"signed_up_at,omitempty"`
 	RemoteCreatedAt        int64                  `json:"remote_created_at,omitempty"`
 	LastRequestAt          int64                  `json:"last_request_at,omitempty"`
@@ -48,13 +48,13 @@ type User struct {
 
 // LocationData represents the location for a User.
 type LocationData struct {
-	CityName      string  `json:"city_name,omitempty"`
+	CityName      string  `json:"city,omitempty"`
 	ContinentCode string  `json:"continent_code,omitempty"`
-	CountryName   string  `json:"country_name,omitempty"`
+	CountryName   string  `json:"country,omitempty"`
 	Latitude      float64 `json:"latitude,omitempty"`
 	Longitude     float64 `json:"longitude,omitempty"`
 	PostalCode    string  `json:"postal_code,omitempty"`
-	RegionName    string  `json:"region_name,omitempty"`
+	RegionName    string  `json:"region,omitempty"`
 	Timezone      string  `json:"timezone,omitempty"`
 	CountryCode   string  `json:"country_code,omitempty"`
 }
@@ -81,7 +81,7 @@ type UserIdentifiers struct {
 
 // UserAvatar represents an avatar for a User.
 type UserAvatar struct {
-	Type string `json:"type,omitempty"`
+	Type     string `json:"type,omitempty"`
 	ImageURL string `json:"image_url,omitempty"`
 }
 
@@ -92,7 +92,7 @@ type userListParams struct {
 }
 
 type scrollParams struct {
-	ScrollParam  string `url:"scroll_param,omitempty"`
+	ScrollParam string `url:"scroll_param,omitempty"`
 }
 
 // FindByID looks up a User by their Intercom ID.
@@ -121,7 +121,7 @@ func (u *UserService) List(params PageParams) (UserList, error) {
 
 // List all Users for App via Scroll API
 func (u *UserService) Scroll(scrollParam string) (UserList, error) {
-       return u.Repository.scroll(scrollParam)
+	return u.Repository.scroll(scrollParam)
 }
 
 // List Users by Segment.
